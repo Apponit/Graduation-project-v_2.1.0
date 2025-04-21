@@ -1,0 +1,39 @@
+<cu-custom bgColor="bg-yellow" isBack="{{true}}">
+  <view slot="content">健康咨询</view>
+</cu-custom>
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+      <text class="cuIcon-title text-orange "></text> 咨询列表
+    </view>
+    <view class="action">
+      <navigator url="/pages/basics/addMessage/addMessage" hover-class="none">
+      <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="gridModal">我要咨询</button>
+    </navigator>
+    </view>
+  </view>
+<view style="overflow:hidden;padding-bottom:70px">
+  <view class="cu-list menu-avatar">
+    <view wx:for="{{list}}" wx:key="id"  catchtap="toReply"  data-id="{{item.questionId}}"  class="cu-item ">
+      <view class="cu-avatar radius lg" style="background-image:url({{item.head}});"></view>
+      <view class="content">
+        <view > 
+          <text class="text-cut">{{item.nickName}}</text>
+        </view> 
+        <view class="text-gray text-sm flex">
+          <text class="text-cut">{{item.context}}</text>
+        </view>
+      </view>
+      <view class="action">
+        <view class="text-grey text-xs"></view>
+       
+      </view>
+    </view>
+    
+    
+  </view>
+</view>
+
+
+
+
+

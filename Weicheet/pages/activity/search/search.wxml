@@ -1,0 +1,26 @@
+<cu-custom bgColor="bg-cyan" isBack="{{true}}">
+<view slot="backText">返回</view>
+<view slot="content">{{title}}</view>
+</cu-custom>
+<view class="cu-bar bg-white search">
+<view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="输入搜索的关键字" confirm-type="search" bindinput="search"></input>
+</view>
+</view>
+<view class="cu-card article {{isCard?'no-card':''}}">
+  <view   wx:for="{{list}}"  data-id="{{item.newsId}}" catchtap="goInfo" class="cu-item shadow">
+    <view class="title">
+      <view class="text-cut">{{item.title}}</view>
+    </view>
+    <view  class="content">
+      <image src="{{item.pic}}" mode="aspectFill"></image>
+      <view class="desc">
+        <view class="text-content">{{item.introduce}}</view>
+        <view>
+          <view class="cu-tag bg-green light sm round">{{item.createTime}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

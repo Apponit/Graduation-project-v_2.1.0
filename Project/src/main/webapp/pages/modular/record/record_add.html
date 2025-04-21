@@ -1,0 +1,85 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/record/record_add.js"]}){
+<form id="recordForm" lay-filter="recordForm" class="layui-form model-form">
+    <input name="recordId" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+
+        
+            <select id="userId" name="userId" lay-filter="goodsTypes" lay-verify="required" required lay-search="">
+        
+         
+        	</select>
+                     
+       
+       
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">检查时间<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="time" name="time" placeholder="请输入检查时间" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>
+  
+    <div class="layui-form-item">
+        <label class="layui-form-label">报告<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="report" name="report" placeholder="请输入报告" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>
+   
+      <div class="layui-form-item">
+        <label class="layui-form-label">详细记录<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+          
+         <textarea id="record" name="record" placeholder="请输入详细记录" type="text" class="layui-textarea" lay-verify="required" required></textarea>
+       
+        
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">建议<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <textarea id="advise" name="advise" placeholder="请输入建议" type="text" class="layui-textarea" lay-verify="required" required></textarea>
+       
+
+        </div>
+    </div>
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+</form>
+<script type="text/javascript" src="${ctxPath}/assets/common/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="${ctxPath}/assets/common/js/jsrender.js"></script>
+<script id="dataList1" type="text/x-jsrender">
+<option value="">选择姓名</option>
+{{for data}}
+    <option value="{{:userId}}">{{:name}}</option>    
+{{/for}} 
+</script>
+
+<script type="text/javascript">
+
+
+function getList(){
+	 var $ax = layui.ax;	
+	 var ajax = new $ax(Feng.ctxPath + "/registeredUsers/getList", function (data) {
+		 $("#userId").html("");							
+			var html = $("#dataList1").render(data);						
+			$("#userId").html(html);	
+			 var form = layui.form;
+			    form.render();
+}, function (data) {
+    Feng.error("获取失败" + data.responseJSON.message)
+});
+
+ajax.start();
+}
+
+
+
+
+</script>
+@}

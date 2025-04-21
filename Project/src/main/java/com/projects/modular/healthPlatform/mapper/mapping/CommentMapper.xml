@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.projects.modular.healthPlatform.mapper.CommentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.projects.modular.healthPlatform.entity.Comment">
+        <id column="comment_id" property="commentId" />
+        <result column="content" property="content" />
+        <result column="user_id" property="userId" />
+        <result column="forum_id" property="forumId" />
+        <result column="create_time" property="createTime" />
+        <result column="score" property="score" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        comment_id AS "commentId", content AS "content", user_id AS "userId", forum_id AS "forumId", create_time AS "createTime", score AS "score"
+    </sql>
+
+</mapper>

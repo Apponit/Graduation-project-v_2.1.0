@@ -1,0 +1,38 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+<view slot="backText">返回</view>
+  <view slot="content">通知公告</view>
+</cu-custom>
+<view class="cu-bar bg-white search">
+<view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="输入搜索的公告名称" confirm-type="search" bindinput="getData"></input>
+</view>
+</view>
+<view class="cu-card case {{isCard?'no-card':''}}">
+  <view   wx:for="{{allList}}"   bindtap="goInfo"    data-id="{{item.noticeId}}"     class="cu-item shadow">
+    <view class="image">
+      <image  style="height:210px"  src="{{item.cover}}"   ></image>
+      <view   class="cu-tag bg-red">通知</view>
+      <view class="cu-bar bg-shadeBottom">
+        <text class="text-cut">{{item.title}}</text>
+      </view>
+    </view>
+    <view  style="padding-left:30rpx;padding-right:30rpx;padding-top:30rpx;"  class=" text1  text-content">
+      {{item.title}}
+    </view>
+    <view  style="padding-left:30rpx;padding-right:30rpx;padding-top:10rpx;padding-bottom:15rpx;" class="cu-list ">
+      <view class="cu-item">
+        <view class="content flex-sub">
+          <view class="text-grey">管理员</view>
+          <view class="text-gray text-sm flex justify-between">
+            {{item.time}}
+            <view class="text-gray text-sm">
+            
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

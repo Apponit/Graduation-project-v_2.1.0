@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.projects.modular.healthPlatform.mapper.ActivityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.projects.modular.healthPlatform.entity.Activity">
+        <id column="activity_id" property="activityId" />
+        <result column="title" property="title" />
+        <result column="context" property="context" />
+        <result column="time" property="time" />
+        <result column="pic" property="pic" />
+        <result column="user_id" property="userId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        activity_id AS "activityId", title AS "title", context AS "context", time AS "time", pic AS "pic", user_id AS "userId"
+    </sql>
+
+</mapper>

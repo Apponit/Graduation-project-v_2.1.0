@@ -1,0 +1,27 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/activityUser/activityUser_add.js"]}){
+<form id="activityUserForm" lay-filter="activityUserForm" class="layui-form model-form">
+    <input name="activityUserId" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label">活动<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="activityId" name="activityId" placeholder="请输入活动" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">报名人<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="userId" name="userId" placeholder="请输入报名人" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">报名时间<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="time" name="time" placeholder="请输入报名时间" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+</form>
+@}

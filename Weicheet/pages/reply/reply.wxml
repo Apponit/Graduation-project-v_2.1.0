@@ -1,0 +1,73 @@
+<cu-custom bgColor="bg-cyan" isBack="{{true}}">
+<view slot="backText">返回</view>
+  <view slot="content">评论</view>
+</cu-custom>
+<view    class="cu-card dynamic no-card" style="m"  >
+<view class="cu-item shadow" style="padding-bottom:10px;"  >
+    <view class="cu-list menu-avatar">
+      <view class="cu-item">
+        <view class="cu-avatar round lg" style="background-image:url({{item.head}});"></view>
+        <view class="content flex-sub">
+          <view>{{item.nickName}}</view>
+          <view class="text-gray text-sm flex justify-between">
+            {{item.createTime}}
+          <view  catchtap="give"  data-id="{{item.forumId}}" class="text-gray text-sm">
+              <text class="cuIcon-appreciatefill margin-lr-xs"></text> {{item.num}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="text-content">
+       {{item.title}}
+    </view>
+    <view class="text-content">
+       {{item.des}}
+    </view>
+    <view    class="grid flex-sub padding-lr col-3 grid-square">
+      <view       class="bg-img" style="background-image:url({{items}});" wx:for="{{item.pics}}"   bindtap="ViewImage"  wx:for-item="items" wx:key="{{index}}">
+      </view>
+   
+    </view>
+    
+    </view>
+  </view>
+
+  <view   class="info_title">
+
+
+  </view>
+
+<view style="overflow:hidden;padding-bottom:50px; ">
+<view wx:for="{{list}}" wx:key="id"  catchtap="toReply"  data-id="{{item.commentId}}"    class="cu-card dynamic no-card" style="m"  >
+<view class="cu-item shadow">
+    <view class="cu-list menu-avatar">
+      <view class="cu-item">
+        <view class="cu-avatar round lg" style="background-image:url({{item.head}});"></view>
+        <view class="content flex-sub">
+          <view>{{item.nickName}}</view>
+          <view class="text-gray text-sm flex justify-between">
+            {{item.createTime}}
+          </view>
+         
+        </view>
+      </view>
+    </view>
+  
+    <view class="text-content">
+       {{item.content}}
+    </view>
+    </view>
+   </view>
+    </view>
+
+<view class="box">
+  <view class="cu-bar input foot">
+    <view class="action">
+      <text class="cuIcon-tagfill text-grey"></text>
+    </view>
+    <input class="solid-bottom" value="{{content}}"   focus="{{false}}" maxlength="300" cursor-spacing="10" bindinput="content"></input>
+
+    <button class="cu-btn bg-green shadow-blur" bindtap="send">发送</button>
+  </view>
+</view>

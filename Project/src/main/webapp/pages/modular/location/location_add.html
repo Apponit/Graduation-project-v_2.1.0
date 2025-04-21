@@ -1,0 +1,39 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/location/location_add.js"]}){
+<form id="locationForm" lay-filter="locationForm" class="layui-form model-form">
+    <input name="locationId" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label">经度<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="lat" name="lat" placeholder="请输入经度" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">纬度<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="lng" name="lng" placeholder="请输入纬度" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">上报时间<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="time" name="time" placeholder="请输入上报时间" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="userId" name="userId" placeholder="请输入用户" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="status" name="status" placeholder="请输入状态" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+</form>
+@}

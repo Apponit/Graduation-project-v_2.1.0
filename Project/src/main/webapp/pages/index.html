@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="${ctxPath}/assets/expand/images/favicon.ico" rel="icon">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="${ctxPath}/assets/common/layui/css/layui.css"/>
+    <link rel="stylesheet" href="${ctxPath}/assets/common/module/admin.css"/>
+
+</head>
+
+<body class="layui-layout-body">
+
+
+<div class="layui-layout layui-layout-admin">
+
+    <!-- 头部 -->
+    @include("/common/_header.html"){}
+
+    <!-- 侧边栏 -->
+    @include("/common/_sidebar.html"){}
+
+    <!-- 主体部分 -->
+    @include("/common/_body.html"){}
+
+    <!-- 底部 -->
+    @include("/common/_footer.html"){}
+
+</div>
+
+<!-- 加载动画，移除位置在common.js中 -->
+@include("/common/loading.html"){}
+
+@/* 加入contextPath属性和session超时的配置 */
+<script type="text/javascript">
+    var Feng = {
+        ctxPath: "",
+        addCtx: function (ctx) {
+            if (this.ctxPath === "") {
+                this.ctxPath = ctx;
+            }
+        }
+    };
+    Feng.addCtx("${ctxPath}");
+</script>
+<script type="text/javascript" src="${ctxPath}/assets/common/layui/layui.js"></script>
+<script type="text/javascript" src="${ctxPath}/assets/common/js/common.js"></script>
+
+
+<script>
+function see(lat,lng){
+  	 top.layui.admin.open({
+           type: 2,
+           area: ['80%', '80%'], //宽高
+           title: '查看位置',
+           content: Feng.ctxPath + '/location/map?lat='+lat+"&lng="+lng,
+           end: function () {
+               admin.getTempData('formOk') && table.reload(News.tableId);
+           }
+       });
+  	 
+  	 
+   }
+    layui.use(['layer', 'element', 'admin', 'index','ax'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var admin = layui.admin;
+        var index = layui.index;
+        var $ax = layui.ax;
+        var test1 = setInterval(function(){
+			
+
+            var ajax = new $ax(Feng.ctxPath + "/location/getLocationList", function (data) {
+              
+         	   if(""!=data.data.name){        		 
+         			 var aa =data.data.name;
+         			 
+         			 speak(aa);
+         	  	   
+         		   var index=layer.open({
+         	   	        type: 1,
+         	   	        title: "救援信息"
+         	   	        ,offset: "rb" //具体配置参考：https://www.layui.site/doc/modules/layer.html#offset
+         	   	        //,id: 'layerDemo' //防止重复弹出
+         	   	        ,content: '<div style="padding:10px 10px;">'+data.data.name+'</br><a style="color:red;cursor:pointer;" onclick="see('+data.data.lat+','+data.data.lng+')" >查看地图</a></div>'
+         	   	        ,btn: '关闭当前窗口',
+         	   	        area:["400px","300px"]
+         	   	        ,btnAlign: 'c' //按钮居中
+         	   	        ,shade: 0 //不显示遮罩
+         	   	        ,yes: function(){
+         	   	          //layer.closeAll();
+                           layer.close(index);
+         	   	        }
+         	   	      });
+         	   }
+         	   
+            }, function (data) {
+                Feng.error("失败!" + data.responseJSON.message + "!");
+            });
+            ajax.start();
+           },5000);
+ 
+ 			
+    
+      
+
+        // 默认加载主页
+        index.loadHome({
+            menuPath: '${ctxPath}/system/console',
+            menuName: '<i class="layui-icon layui-icon-home"></i>'
+        });
+
+        // 修改密码点击事件
+        $('#setPsw').click(function () {
+            admin.open({
+                id: 'pswForm',
+                type: 2,
+                title: '修改密码',
+                shade: 0,
+                content: '${ctxPath}/system/user_chpwd'
+            });
+        });
+
+        // 退出登录点击事件
+        $('#btnLogout').click(function () {
+            layer.confirm('确定退出登录？', {
+                skin: 'layui-layer-admin'
+            }, function () {
+                window.location.href = "${ctxPath}/logout";
+            });
+        });
+    });
+    
+    
+    // function speak(text) {
+    //     const synth = window.speechSynthesis;
+    //
+    //
+    //     // 创建语音实例
+    //     const utterance = new SpeechSynthesisUtterance(text);
+    //
+    //     // 设置语音参数（可选）
+    //     utterance.lang = 'zh-CN'; // 中文
+    //     utterance.rate = 1;       // 语速（0.1-10）
+    //     utterance.pitch = 1;      // 音调（0-2）
+    //     utterance.volume = 1;     // 音量（0-1）
+    //
+    //     // 开始播放
+    //     synth.speak(utterance);
+    //   }
+
+
+
+
+function speak(text) {
+    const synth = window.speechSynthesis;
+
+    // 获取系统中可用的语音列表
+    const voices = synth.getVoices();
+
+    // 遍历语音列表，选择合适的语音（这里简单选择第一个中文语音）
+    let selectedVoice;
+    for (let i = 0; i < voices.length; i++) {
+        if (voices[i].lang.includes('zh-CN')) {
+            selectedVoice = voices[i];
+            break;
+        }
+    }
+
+    // 创建语音实例
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    // 设置语音参数（可选）
+    utterance.lang = 'zh-CN'; // 中文
+    utterance.rate = 1;       // 语速（0.1-10）
+    utterance.pitch = 2;      // 音调（0-2）
+    utterance.volume = 1;     // 音量（0-1）
+
+    // 设置选择的语音
+    if (selectedVoice) {
+        utterance.voice = selectedVoice;
+    }
+
+    // 开始播放
+    synth.speak(utterance);
+}
+
+
+</script>
+</body>
+
+</html>

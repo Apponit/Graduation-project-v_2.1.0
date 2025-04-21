@@ -1,0 +1,73 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/attendance/attendance_edit.js"]}){
+
+<div id="allmap" style="width: 100%;height: 900px"></div>
+    
+    
+    
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=EA50f966a0f1763c87d0b4100e9f03bb"></script>
+<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+<script type="text/javascript" src="${ctxPath}/assets/common/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+var $ ;var form;var $ax ;
+$(function(){
+	layui.use([ 'form', 'upload', 'element', 'ax', 'laydate'], function () {
+		 $ = layui.jquery;
+		 form = layui.form;
+		var upload = layui.upload;
+		var element = layui.element;
+		 $ax = layui.ax;
+	});
+});
+
+
+//清除覆盖物
+function remove_overlay(){
+	map.clearOverlays();         
+}
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	var point = new BMap.Point(${lng},${lat});
+	map.centerAndZoom(point,18);
+	map.enableScrollWheelZoom(true);
+	
+	remove_overlay();
+	var mk = new BMap.Marker(point);
+	map.addOverlay(mk);
+	
+	
+	
+	function showInfo(e){
+		remove_overlay();
+		var mk = new BMap.Marker(e.point);
+		map.addOverlay(mk);
+		$("#lat").val(e.point.lat);
+		$("#lng").val(e.point.lng);
+		var geoc = new BMap.Geocoder();
+		geoc.getLocation(e.point, function(rs){
+		　　　　var addComp = rs.addressComponents;
+		　　　　var result = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+		　　　$("#address").val(result);
+		  $("[name='lnglat']").val(e.point.lat+","+e.point.lng);
+		　　　　//$("#start_location").val(result);
+		　　　　　
+		});
+		
+		
+	
+		
+	}
+	//map.addEventListener("click", showInfo);
+	
+	
+	//关于状态码
+	//BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
+	//BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
+	//BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
+	//BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
+	//BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
+	//BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
+	//BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
+	//BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
+	//BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
+</script>
+@}

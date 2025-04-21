@@ -1,0 +1,31 @@
+<scroll-view scroll-y class="scrollPage">
+  <view class="UCenter-bg">
+    <navigator wx:if="{{isLogin == false}}"  url="/pages/about/login/login" hover-class="none">
+    <view class="cu-avatar xl round" style="background-image:url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201509%2F22%2F20150922180033_hV43u.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1619497588&t=97dff18686d16d8e31ebb95122318105);"></view>
+    <view class="text-xl text-center">点击登陆</view>
+    </navigator>
+    <navigator wx:if="{{isLogin == true}}"  url="/" hover-class="none">
+    <view class="cu-avatar xl round" style="background-image:url({{head}});"></view>
+    <view class="text-xl text-center">{{name}}<view wx:if="{{type=='0'}}" class="text-xl text-red">【普通用户】</view>
+    <view wx:if="{{type=='1'}}" class="text-xl text-red">【VIP用户】</view></view>
+    </navigator>
+    <image src="https://raw.githubusercontent.com/weilanwl/ColorUI/master/demo/images/wave.gif" mode="scaleToFill" class="gif-wave"></image>
+  </view>
+
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+   <view wx:if="{{isLogin == true}}"  class="cu-item arrow">
+      <navigator class="content" url="/pages/about/me/me" hover-class="none">
+        <text class="cuIcon-form text-orange"></text>
+        <text class="text-grey">我的信息</text>
+      </navigator>
+    </view> 
+
+    <view  wx:if="{{isLogin == true}}" class="cu-item">
+    <view class="content"  bindtap='loginOut'>
+        <text class="cuIcon-exit text-blue"></text>
+        <text class="text-grey">退出登陆</text>
+    </view>
+    </view>
+  </view>
+  <view class="cu-tabbar-height"></view>
+</scroll-view>

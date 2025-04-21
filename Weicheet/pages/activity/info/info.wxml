@@ -1,0 +1,101 @@
+<cu-custom bgColor="bg-cyan" isBack="{{true}}">
+<view slot="backText">返回</view>
+<view slot="content">服务详情</view>
+</cu-custom>
+<view class="bg-white padding">
+<view class="cu-card case isCard">
+  <view class="card_contain shadow">
+    <swiper class="screen-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+<swiper-item  wx:key="id">
+      <image src="{{info.cover}}" mode="aspectFill"></image>
+</swiper-item>
+</swiper>
+  </view>
+  <view class="card_title">
+     {{info.title}}
+  </view>
+
+  <view class="text-red">服务价格:￥{{info.price}}元/月</view>
+  <view class="cu-list menu" style="margin-top:10px">
+   
+  </view>
+  
+  <view class="info_title">
+ 服务介绍
+  </view>
+  <view class="padding" style="padding-left:0px;padding-right:0px">
+  {{info.intro}}
+  </view>
+  <view class="padding text-align">
+    <view   wx:if="{{!info.t}}"      class="cu-bar btn-group">
+      <button  class="cu-btn text-red line-red shadow round"  bindtap="showModal" data-target="DialogModal2"  data-id="{{info.housesId}}">预约服务</button>
+    
+    <button class="cu-btn bg-green shadow-blur round" bindtap="toReply" data-id="{{info.tel}}">电话联系</button>
+ 
+    </view>
+  </view>
+ 
+  <view style="overflow:hidden;padding-bottom:50px">
+<view wx:for="{{list}}" wx:key="id"  catchtap="toReply"  data-id="{{item.commentId}}"    class="cu-card dynamic no-card" style="m"  >
+<view class="cu-item shadow">
+    <view class="cu-list menu-avatar">
+      <view class="cu-item">
+        <view class="cu-avatar round lg" style="background-image:url({{item.head}});"></view>
+        <view class="content flex-sub">
+          <view>{{item.nickName}}</view>
+          <view class="text-gray text-sm flex justify-between">
+            {{item.createTime}}
+          </view>
+         
+        </view>
+      </view>
+    </view>
+  
+    <view class="text-content">
+       {{item.content}}
+    </view>
+    </view>
+   </view>
+    </view>
+
+</view>
+</view>
+
+
+
+
+
+<view class="cu-modal {{modalName=='DialogModal2'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content text-red text-price">{{info.price}}</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+
+   <view style="margin-top: 10rpx;" class="cu-form-group ">
+		<view class="title">预约时间</view>
+		<picker mode="date" value="{{startdate}}" start="2025-01" end="2025-09" bindchange="DateChange">
+			<view class="picker">
+				{{startdate}}
+			</view>
+		</picker>
+
+
+    </view>
+    <view class="cu-form-group align-start">
+		<view class="title">留言</view>
+		<textarea maxlength="-1"  bindinput="getcontent" placeholder="请输入留言的内容"></textarea>
+	</view>
+    <view class="padding-xl">
+     	<input type="password" placeholder="请输入支付密码" bindinput="userPass"></input>
+    </view>
+    <view class="cu-bar bg-white">
+      <view catchtap="pay" class="action margin-0 flex-sub text-green " bindtap="hideModal">
+        <text     class="cuIcon-moneybag"></text>确认支付</view>
+      <view class="action margin-0 flex-sub text-green solid-left" bindtap="hideModal">取消</view>
+     
+    </view>
+  </view>
+</view>
